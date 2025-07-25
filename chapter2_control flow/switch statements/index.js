@@ -19,3 +19,14 @@ switch (grade) {
   default:
     console.log("Enter valid Grade");
 }
+
+//
+const age = 20;
+if (true) {
+  const fname = "hello";
+  console.log(age, fname);
+  if (true) {
+    console.log(age, fname);
+  }
+}
+console.log(age, fname);
