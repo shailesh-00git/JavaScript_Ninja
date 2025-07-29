@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pop of box</title>
+    <style>
+      .mainbox {
+        width: 400px;
+        height: 300px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        display: none;
+        border-radius: 10px; /* Add border-radius here */
+      }
+      
+      button {
+        font-size: 16px;
+        padding: 6px 12px;
+        background-color: rgb(235, 75, 101);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin: 20px auto;
+        margin-left: 44%;
+      }
+      
+      .box {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="opnBtn">click me</button>
+    <div class="mainbox">
+      <div class="box">
+        <h1>"Grab free courses"</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. In adipisci
+          deserunt, nulla pariatur architecto modi nemo ratione? Adipisci a
+          cupiditate harum architecto aliquam nostrum voluptates quidem itaque,
+          necessitatibus vel suscipit.
+        </p>
+        <button class="clsBtn">close</button>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
