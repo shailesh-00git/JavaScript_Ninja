@@ -1,4 +1,4 @@
-//digital clock
+//digital clock 
 const clock = document.querySelector(".clock");
 setInterval(() => {
   const now = new Date();
@@ -7,8 +7,8 @@ setInterval(() => {
   const s = now.getSeconds();
 
   const html = `
-  <span>${h}</span> :
-  <span>${m}</span> :
+  <span>${h}</span>
+  <span>${m}</span>
   <span>${s}</span>
   `;
   clock.innerHTML = html;
