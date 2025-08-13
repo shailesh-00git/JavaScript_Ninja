@@ -6,6 +6,7 @@ const details = document.querySelector(".details");
 const updateUI = (data) => {
   const cityDetail = data.cityDetails;
   const weather = data.weather;
+  // const { cityDetail, weather } = data;
   console.log(cityDetail);
   console.log(weather);
 
