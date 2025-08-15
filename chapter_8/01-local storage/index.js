@@ -12,5 +12,5 @@ console.log(localStorage.getItem("name"));
 console.log(localStorage.getItem("age"));
 console.log(localStorage.getItem("address"));
 
-//delete item
+//////delete item
 // localStorage.removeItem("address");
