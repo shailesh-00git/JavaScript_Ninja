@@ -14,28 +14,47 @@
   <body>
     <h1 class="text-center border py-2">Recipies list</h1>
     <div class="container">
-      <ul class="list-group">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-      </ul>
-      <form class="form-conrtrol my-3">
-        <input
-          type="text"
-          class="w-80"
-          placeholder="recipies"
-          aria-label="recipies"
-        />
-        <input
-          type="text"
-          class="w-80"
-          placeholder="author"
-          aria-label="author"
-        />
-        <button class="btn btn-success">Submit</button>
-      </form>
+      <div class="container my-5">
+        <div class="card shadow-sm">
+          <div
+            class="card-header bg-primary text-white text-center fs-4 fw-bold"
+          >
+            Recipes
+          </div>
+          <ul class="list-group list-group-flush list"></ul>
+        </div>
+      </div>
+
+      <div class="container my-5">
+        <div class="card shadow-sm rounded-4"></div>
+      </div>
+
+      <!-- for form -->
+      <div class="p-3">
+        <form class="recipie-form row g-2">
+          <div class="col-md-5">
+            <input
+              type="text"
+              name="name"
+              class="form-control name"
+              placeholder="Recipe name"
+              required
+            />
+          </div>
+          <div class="col-md-5">
+            <input
+              type="text"
+              name="author"
+              class="form-control author"
+              placeholder="Author"
+              required
+            />
+          </div>
+          <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-success">Add</button>
+          </div>
+        </form>
+      </div>
     </div>
     <script type="module" src="script.js"></script>
   </body>
