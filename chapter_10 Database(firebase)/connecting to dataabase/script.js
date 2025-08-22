@@ -3,7 +3,9 @@ import {
   getFirestore,
   collection, // to get the whole collection
   getDocs, //for retriving the docs
-  addDoc, //for getting the docs
+  addDoc,
+  deleteDoc,
+  doc, //for getting the docs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 // Firebase config
@@ -25,23 +27,25 @@ const db = getFirestore(app);
 async function getRecipies() {
   const recipiesCol = collection(db, "recipies");
   const recipSnapshot = await getDocs(recipiesCol);
-  return recipSnapshot.docs.map((doc) => doc.data());
+  return recipSnapshot.docs.map((d) => ({ id: d.id, ...d.data() })); //include id
 }
-
+//accsssing list
+const listElement = document.querySelector(".list");
 // Render items  fetched from
 const addItems = (list) => {
-  const listElement = document.querySelector(".list");
   listElement.innerHTML = ""; // clear before adding
-
 
   list.forEach((element) => {
     const li = document.createElement("li");
     li.className =
-      "list-group-item d-flex justify-content-between align-items-center";
+      "list-group-item d-flex justify-content-between align-items-center delete";
+    li.setAttribute("data-id", element.id);
     li.innerHTML = `
       <span class="fw-semibold">${element.name}</span>
-      <span class="fw-semibold">${element.author}</span> `;
-    listElement.appendChild(li);
+       <button class="btn btn-outline-danger delete-btn btn-sm ">
+        Delete
+      </button>`;
+    listElement.prepend(li);
   });
 };
 
@@ -52,10 +56,7 @@ async function addRecipe(name, author) {
     author: author, // field
     createdAt: new Date(), // optional extra field
   });
-
-  console.log("Document written with ID: ", docRef.id);
-  const recipes = await getRecipies();
-  addItems(recipes);
+  addItems(await getRecipies());
 }
 
 // Usage
@@ -67,8 +68,22 @@ getRecipies()
 const form = document.querySelector(".recipie-form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const name = form.name.value;
-  const author = form.author.value;
-  console.log(name, author);
+  const name = form.name.value.trim();
+  const author = form.author.value.trim();
   addRecipe(name, author);
+  form.reset();
+});
+
+//deleting from the list
+listElement.addEventListener("click", (e) => {
+  const btn = e.target.closest(".delete-btn");
+
+  const parentLi = btn.closest("li");
+
+  const id = parentLi.dataset.id; // Firestore ID stored on li
+  console.log("Attempting to delete ID:", id);
+  //deleting the element
+
+  deleteDoc(doc(db, "recipies", id));
+  parentLi.remove();
 });
