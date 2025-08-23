@@ -3,7 +3,8 @@ import {
   getFirestore,
   collection, // to get the whole collection
   getDocs, //for retriving the docs
-  addDoc, //adding the docs
+  addDoc,
+  serverTimestamp, //adding the docs
   deleteDoc, //deleting the docs
   doc, //for getting the docs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -28,23 +29,44 @@ async function getRecipies() {
   const recipSnapshot = await getDocs(recipiesCol);
   return recipSnapshot.docs.map((d) => d.data()); //include id
 }
-const list = document.querySelector("ul");
 
+//getting refuence to parent element
+const list = document.querySelector("ul");
+//getting reference to form
+const form = document.querySelector("form");
 //html template
 const addRecipe = (recipie) => {
   let html = `<li><div>${
     recipie.name
-    //togrt() converts mili and nano second in date
+    //toDate() converts mili and nano second in date
   }</div><div>${recipie.createdAt.toDate()}</div></li>`;
-  console.log(html);
   list.innerHTML += html;
 };
+
+///setting recipies to data base
+function setRecipies(title) {
+  return addDoc(collection(db, "recipies"), {
+    name: title,
+    createdAt: serverTimestamp(),
+  });
+}
+
+//extracting data from form
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const title = form.recipie.value.trim();
+  setRecipies(title)
+    .then((res) => {
+      // console.log(res);
+    })
+    .catch((err) => console.log(err));
+});
 
 getRecipies()
   .then((recipiList) => {
     recipiList.forEach((element) => {
       addRecipe(element);
-      console.log(element);
+      // console.log(element);
     });
   })
   .catch((err) => console.error(err));
