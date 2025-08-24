@@ -31,7 +31,7 @@ const addRecipe = (recipe, id) => {
   const createdAt = recipe.createdAt?.toDate() || new Date();
 
   const html = `
-        <li data-id="${id}">
+        <li class="border border-secondary rounded-1 p-2 mb-2 " data-id="${id}">
           <div>${recipe.name}</div>
           <div>${createdAt}</div>
           <button class="btn btn-outline-danger my-2">delete</button>

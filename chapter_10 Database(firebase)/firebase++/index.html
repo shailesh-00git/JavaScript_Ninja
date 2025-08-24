@@ -12,12 +12,18 @@
     />
   </head>
   <body>
-    <div class="container my-5">
-      <h2>Recipies</h2>
-      <ul></ul>
+    <div class="container my-5 rounded-2 px-5 pb-5 shadow">
+      <h2 class="text-center py-4">Recipies</h2>   
+      <ul class="list-unstyled"></ul>
       <form>
-        <div class="input-group">
-          <input type="text" class="from-control" id="recipie" required />
+        <div class="input-group gap-2 mt-5">
+          <input
+            type="text"
+            class="from-control border-1 rounded-2 px-2"
+            id="recipie"
+            placeholder="Add recipies..."
+            required
+          />
           <div class="input-group-append">
             <input
               type="submit"
