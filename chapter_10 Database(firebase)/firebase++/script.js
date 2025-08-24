@@ -3,7 +3,7 @@ import {
   getFirestore,
   collection, // to get the whole collection
   getDocs, //for retriving the docs
-  addDoc,
+  addDoc, //for adding docs
   serverTimestamp, //adding the docs
   deleteDoc, //deleting the docs
   doc, //for getting the docs
@@ -27,45 +27,62 @@ const db = getFirestore(app);
 async function getRecipies() {
   const recipiesCol = collection(db, "recipies");
   const recipSnapshot = await getDocs(recipiesCol);
-  return recipSnapshot.docs.map((d) => d.data()); //include id
+  return recipSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })); //include id
 }
 
-//getting refuence to parent element
+//getting references to parent element
 const list = document.querySelector("ul");
-//getting reference to form
 const form = document.querySelector("form");
-//html template
-const addRecipe = (recipie) => {
-  let html = `<li><div>${
+
+//Add recipie to html
+const addRecipe = (recipie, id) => {
+  let html = `<li data-id="${id}"><div>${
     recipie.name
     //toDate() converts mili and nano second in date
-  }</div><div>${recipie.createdAt.toDate()}</div></li>`;
+  }</div><div>${recipie.createdAt.toDate()}</div>
+  <button class ="btn btn-outline-danger my-2">delete</button>
+  </li>`;
   list.innerHTML += html;
 };
 
-///setting recipies to data base
-function setRecipies(title) {
-  return addDoc(collection(db, "recipies"), {
-    name: title,
-    createdAt: serverTimestamp(),
-  });
-}
-
-//extracting data from form
+//extracting data from form adding to database
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const title = form.recipie.value.trim();
-  setRecipies(title)
-    .then((res) => {
-      // console.log(res);
+  addDoc(collection(db, "recipies"), {
+    name: title,
+    createdAt: serverTimestamp(),
+  })
+    .then(() => {
+      // console.log("recipie sucessfuly deleted");
     })
     .catch((err) => console.log(err));
+});
+form.reset();
+
+//deleting the recipies
+list.addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log(e);
+  if (e.target.tagName == "BUTTON") {
+    console.log("button was clicked");
+    const id = e.target.parentElement.getAttribute("data-id");
+    // console.log(id);
+    deleteDoc(doc(db, "recipies", id))
+      .then(() => {
+        // console.log("recipie sucessfully deleted");
+      })
+      .catch((err) => console.log(err));
+  }
+  // console.log(e.target.innerText);
+  // e.target.innerText = "deleting...";
 });
 
 getRecipies()
   .then((recipiList) => {
     recipiList.forEach((element) => {
-      addRecipe(element);
+      // console.log(element.id);
+      addRecipe(element, element.id);
       // console.log(element);
     });
   })
