@@ -25,6 +25,7 @@ const db = getFirestore(app);
 
 const list = document.querySelector("ul");
 const form = document.querySelector("form");
+const button = document.querySelector(".unsuscribe");
 
 // Add recipe to HTML
 const addRecipe = (recipe, id) => {
@@ -47,7 +48,7 @@ const deleteRecipeFromDOM = (id) => {
 };
 
 // Real-time listener (handles initial load + future changes)
-onSnapshot(collection(db, "recipies"), (snapshot) => {
+const unSub = onSnapshot(collection(db, "recipies"), (snapshot) => {
   snapshot.docChanges().forEach((change) => {
     if (change.type === "added") {
       addRecipe(change.doc.data(), change.doc.id);
@@ -78,4 +79,10 @@ list.addEventListener("click", (e) => {
     const id = e.target.parentElement.getAttribute("data-id");
     deleteDoc(doc(db, "recipies", id)).catch((err) => console.log(err));
   }
+});
+
+//stope real time listeners or un suscribing
+button.addEventListener("click", () => {
+  unSub();
+  console.log("unsusscribed");
 });
