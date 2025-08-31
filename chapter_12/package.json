@@ -1,0 +1,17 @@
+{
+  "name": "chapter_12",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel src/index.js -w -o dist/assets/bundle.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3"
+  }
+}
