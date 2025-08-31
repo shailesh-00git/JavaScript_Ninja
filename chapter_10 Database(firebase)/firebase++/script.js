@@ -11,7 +11,7 @@ import {
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyBRYd-3WaAc4nr6qSbD6AweWse3CbUpeCo",
+  apiKey: "DATABASE_KEY",
   authDomain: "ninja-test-754f5.firebaseapp.com",
   databaseURL: "https://ninja-test-754f5-default-rtdb.firebaseio.com",
   projectId: "ninja-test-754f5",
